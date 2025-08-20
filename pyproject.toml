@@ -1,0 +1,82 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "streamlit-select-icons"
+version = "0.0.1"
+authors = [
+    {name = "Andrew Ferguson", email = "afdatatech@gmail.com"},
+]
+description = "Streamlit component that creates a selectable list of icons with labels."
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.11"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Framework :: Streamlit",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: User Interfaces",
+]
+keywords = ["streamlit", "component", "icons", "ui", "selection"]
+dependencies = [
+    "streamlit >= 0.63",
+]
+
+[project.optional-dependencies]
+dev = [
+    "wheel",
+    "pytest==7.4.0",
+    "playwright==1.48.0",
+    "requests==2.31.0",
+    "pytest-playwright-snapshot==1.0",
+    "pytest-rerunfailures==12.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/edt-andrew/streamlit-select-icons"
+"Bug Reports" = "https://github.com/edt-andrew/streamlit-select-icons/issues"
+"Source" = "https://github.com/edt-andrew/streamlit-select-icons"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["streamlit_select_icons*"]
+
+[tool.setuptools.package-data]
+"streamlit_select_icons" = ["frontend/build/**/*"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = ["tests"]
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
