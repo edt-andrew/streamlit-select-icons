@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "streamlit-select-icons"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
     {name = "Andrew Ferguson", email = "afdatatech@gmail.com"},
 ]
 description = "Streamlit component that creates a selectable list of icons with labels."
 readme = "README.md"
-license = {file = "LICENSE"}
+license = {text = "MIT"}
 requires-python = ">=3.11"
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -19,9 +19,10 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "Framework :: Streamlit",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Software Development :: User Interfaces",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Topic :: Multimedia :: Graphics",
 ]
 keywords = ["streamlit", "component", "icons", "ui", "selection"]
 dependencies = [

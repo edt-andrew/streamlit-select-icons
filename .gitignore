@@ -170,3 +170,4 @@ Thumbs.db
 # Backup files
 *.old
 *.bak
+.pypirc
