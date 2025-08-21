@@ -28,17 +28,17 @@ from streamlit_select_icons import select_icons
 items = {
     "home": {
         "label": "Home", 
-        "icon": "path/to/home-icon.png",
+        "icon": "static/home-icon.png",  # Will resolve to /app/static/home-icon.png
         "properties": {"category": "navigation"}
     },
     "search": {
         "label": "Search", 
-        "icon": "path/to/search-icon.png",
+        "icon": "static/search-icon.png",  # Will resolve to /app/static/search-icon.png
         "properties": {"category": "action"}
     },
     "profile": {
         "label": "Profile", 
-        "icon": "path/to/profile-icon.png",
+        "icon": "static/profile-icon.png",  # Will resolve to /app/static/profile-icon.png
         "properties": {"category": "user"}
     },
 }
@@ -60,6 +60,15 @@ if result:
     st.write("Selected items:", result["selected_items"])
     st.write("All items:", result["items"])
 ```
+
+## Static Files
+
+The component automatically resolves icon paths that start with `static/` to Streamlit's `/app/static/` folder. This means:
+
+- `"static/icon.png"` → `/app/static/icon.png`
+- `"static/my-icon.svg"` → `/app/static/my-icon.svg`
+
+**Important**: Place your icon images in your Streamlit app's `static/` folder for this to work correctly.
 
 ## Parameters
 

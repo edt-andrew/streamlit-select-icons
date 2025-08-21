@@ -13,9 +13,15 @@ except ModuleNotFoundError:
 # Icon Selection Component Demo
 st.title("🎯 Icon Selection Component Demo")
 
+# Note about static file paths:
+# The component automatically resolves "static/filename.png" to "/app/static/filename.png"
+# Make sure to place your icon images in your Streamlit app's static folder
+st.info("💡 **Static Files**: Place your icon images in your Streamlit app's `static/` folder. The component will automatically resolve paths like `static/icon.png` to `/app/static/icon.png`")
+
 st.markdown("---")
 
 # Sample items for demonstration
+# Note: "static/icon.png" will be resolved to "/app/static/icon.png" in Streamlit
 items = {
     "home": {"label": "Home (3 items)", "icon": "static/icon.png", "properties": {"category": "navigation", "priority": 1}},
     "search": {"label": "Search", "icon": "static/icon.png", "properties": {"category": "action", "priority": 2}},

@@ -12,7 +12,7 @@ import React, {
 } from "react"
 
 // Resolve icon paths passed from Python. Supports absolute URLs and
-// maps "static/icon.png" and "static/group.png" to local bundled assets.
+// maps "static/icon.png" and "static/group.png" to Streamlit's /app/static folder.
 const resolveIconSrc = (iconPath?: string): string | undefined => {
   if (!iconPath) return undefined
   const trimmed = iconPath.trim()
@@ -23,10 +23,14 @@ const resolveIconSrc = (iconPath?: string): string | undefined => {
   // Normalize leading slashes
   const normalized = trimmed.replace(/^\/+/, "")
   if (normalized === "static/icon.png") {
-    return new URL("../images/icon.png", import.meta.url).toString()
+    return "/app/static/icon.png"
   }
   if (normalized === "static/group.png") {
-    return new URL("../images/group.png", import.meta.url).toString()
+    return "/app/static/group.png"
+  }
+  // For other static files, assume they're in Streamlit's /app/static folder
+  if (normalized.startsWith("static/")) {
+    return `/app/${normalized}`
   }
   // Fallback: try relative to current module (will 404 if not bundled)
   try {
