@@ -5,3 +5,15 @@ declare module "d3-hierarchy" {
   export type HierarchyRectangularNode<T = any> = any
 }
 
+// Type definitions for the streamlit-select-icons component
+export interface ItemRecord {
+  label: string
+  icon?: string | null  // Can be None/null for no icon
+  alt_text?: string     // Text to display instead of icon when icon is None
+  properties?: Record<string, unknown>
+}
+
+export interface ItemsMap {
+  [key: string]: ItemRecord
+}
+

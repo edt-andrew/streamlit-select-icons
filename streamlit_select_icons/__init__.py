@@ -64,7 +64,9 @@ def select_icons(
     Parameters
     ----------
     items: dict
-        Mapping of item id -> {"label": str, "icon": str, "properties": dict}
+        Mapping of item id -> {"label": str, "icon": Optional[str], "alt_text": Optional[str], "properties": dict}
+        - icon: Path to icon image. Can be None for no icon.
+        - alt_text: Text to display instead of icon when icon is None. Displayed in larger font than label.
     selected_items: Optional[List[str]]
         Initially selected item ids
     multi_select: bool
@@ -93,7 +95,7 @@ def select_icons(
     -------
     dict
         {
-          "items": { item_id: {"label": str, "icon": str, "properties": dict}, ... },
+          "items": { item_id: {"label": str, "icon": Optional[str], "alt_text": Optional[str], "properties": dict}, ... },
           "selected_items": [item_id, ...]
         }
     """

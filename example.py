@@ -33,6 +33,42 @@ items = {
     "analytics": {"label": "Analytics", "icon": "static/icon.png", "properties": {"category": "data", "priority": 8}},
 }
 
+# Demo 0: None icon and alt_text functionality
+st.subheader("🚫 No Icon & Alt Text Demo")
+st.write("Demonstrating items with no icons and alternative text display.")
+
+# Create items with different icon configurations
+demo_items = {
+    "with_icon": {"label": "With Icon", "icon": "static/icon.png", "properties": {"category": "demo"}},
+    "no_icon": {"label": "Label Only. You can fit a lot more text here.", "icon": None, "alt_text": None, "properties": {"category": "demo"}},
+    "alt_text": {"label": "Text Only", "icon": None, "alt_text": "ALT TEXT", "properties": {"category": "demo"}},
+    "emoji_alt": {"label": "Emoji Alt", "icon": None, "alt_text": "🎯", "properties": {"category": "demo"}},
+}
+
+result0 = select_icons(
+    items=demo_items,
+    multi_select=True,
+    layout="column",
+    columns=4,
+    width=400,
+    height=200,
+    size=80,
+    key="icon_demo",
+)
+
+st.write("**Items shown:**")
+st.write("- **With Icon**: Normal icon display")
+st.write("- **Label Only**: No icon area - only the label text is displayed")
+st.write("- **Alt Text**: Custom text (ALT TEXT) instead of icon")
+st.write("- **Emoji Alt**: Custom emoji (🎯) instead of icon")
+
+st.info("💡 **New Feature**: When both `icon` and `alt_text` are `None`, the icon area is completely absent, and only the label text is displayed, making the card cleaner and more focused.")
+
+if result0:
+    st.write("**Selected items:**", result0.get("selected_items", []))
+
+st.markdown("---")
+
 # Demo 1: Multi-select mode with multiple columns
 st.subheader("🔢 Multi-Select Mode (3 Columns)")
 st.write("Icons flow in 3 columns, scrolling vertically when columns are full.")
@@ -331,5 +367,118 @@ result8 = select_icons(
 st.write("**Expected:** You should be able to scroll horizontally to see all 16 items")
 if result8:
     st.write("**Selected items:**", result8.get("selected_items", []))
+
+st.markdown("---")
+
+# Demo 9: Practical None icon and alt_text usage
+st.subheader("💼 Practical Usage Examples")
+st.write("Real-world scenarios where no icons and alt text are useful.")
+
+# Example 1: Status indicators
+st.write("**Status Indicators**")
+status_items = {
+    "active": {"label": "Active", "icon": None, "alt_text": "🟢", "properties": {"status": "active"}},
+    "inactive": {"label": "Inactive", "icon": None, "alt_text": "🔴", "properties": {"status": "inactive"}},
+    "pending": {"label": "Pending", "icon": None, "alt_text": "🟡", "properties": {"status": "pending"}},
+    "error": {"label": "Error", "icon": None, "alt_text": "❌", "properties": {"status": "error"}},
+}
+
+result9a = select_icons(
+    items=status_items,
+    multi_select=False,
+    layout="row",
+    rows=1,
+    width=400,
+    height=120,
+    size=80,
+    key="status_demo",
+)
+
+# Example 2: Category indicators
+st.write("**Category Indicators**")
+category_items = {
+    "urgent": {"label": "Urgent", "icon": None, "alt_text": "⚡", "properties": {"priority": "high"}},
+    "normal": {"label": "Normal", "icon": None, "alt_text": "📋", "properties": {"priority": "medium"}},
+    "low": {"label": "Low", "icon": None, "alt_text": "📝", "properties": {"priority": "low"}},
+    "completed": {"label": "Completed", "icon": None, "alt_text": "✅", "properties": {"priority": "done"}},
+}
+
+result9b = select_icons(
+    items=category_items,
+    multi_select=True,
+    layout="row",
+    rows=1,
+    width=400,
+    height=120,
+    size=80,
+    key="category_demo",
+)
+
+# Example 3: Mixed content
+st.write("**Mixed Content (Icons + Alt Text)**")
+mixed_items = {
+    "file_pdf": {"label": "PDF Document", "icon": "static/icon.png", "properties": {"type": "file"}},
+    "file_doc": {"label": "Word Document", "icon": None, "alt_text": "📄", "properties": {"type": "file"}},
+    "folder": {"label": "Folder", "icon": "static/group.png", "properties": {"type": "folder"}},
+    "link": {"label": "External Link", "icon": None, "alt_text": "🔗", "properties": {"type": "link"}},
+}
+
+result9c = select_icons(
+    items=mixed_items,
+    multi_select=True,
+    layout="column",
+    columns=2,
+    width=200,
+    height=200,
+    size=80,
+    key="mixed_demo",
+)
+
+st.write("**Use cases:**")
+st.write("- Status indicators with colored emojis")
+st.write("- Category labels with descriptive symbols")
+st.write("- Mixed content where some items have icons and others use alt text")
+
+if result9a:
+    st.write("**Status selected:**", result9a.get("selected_items", []))
+if result9b:
+    st.write("**Categories selected:**", result9b.get("selected_items", []))
+if result9c:
+    st.write("**Mixed items selected:**", result9c.get("selected_items", []))
+
+st.markdown("---")
+
+# Demo 0.5: Label filling behavior demonstration
+st.subheader("📝 Label Filling Behavior Demo")
+st.write("Demonstrating how labels fill the icon area when no icon or alt_text is provided.")
+
+# Create items specifically to show the label filling behavior
+label_fill_items = {
+    "short_label": {"label": "Short", "icon": None, "alt_text": None, "properties": {"type": "label_fill"}},
+    "medium_label": {"label": "Medium Label", "icon": None, "alt_text": None, "properties": {"type": "label_fill"}},
+    "long_label": {"label": "Very Long Label Text", "icon": None, "alt_text": None, "properties": {"type": "label_fill"}},
+    "mixed_1": {"label": "Mixed 1", "icon": "static/icon.png", "properties": {"type": "mixed"}},
+    "mixed_2": {"label": "Mixed 2", "icon": None, "alt_text": "🎯", "properties": {"type": "mixed"}},
+    "mixed_3": {"label": "Mixed 3", "icon": None, "alt_text": None, "properties": {"type": "mixed"}},
+}
+
+result0_5 = select_icons(
+    items=label_fill_items,
+    multi_select=True,
+    layout="column",
+    columns=3,
+    width=400,
+    height=250,
+    size=100,
+    key="label_fill_demo",
+)
+
+st.write("**Behavior demonstration:**")
+st.write("- **Short/Medium/Long Labels**: When `icon=None` and `alt_text=None`, the icon area is completely absent")
+st.write("- **Mixed Content**: Shows how different configurations work together")
+st.write("- **Clean Design**: Items without icons have a cleaner, more focused appearance")
+
+if result0_5:
+    st.write("**Selected items:**", result0_5.get("selected_items", []))
 
 st.markdown("---")

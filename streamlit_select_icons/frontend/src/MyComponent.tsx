@@ -42,7 +42,8 @@ const resolveIconSrc = (iconPath?: string): string | undefined => {
 
 type ItemRecord = {
   label: string
-  icon: string
+  icon?: string | null  // Can be None/null for no icon
+  alt_text?: string     // Text to display instead of icon when icon is None
   properties?: Record<string, unknown>
 }
 
@@ -178,11 +179,6 @@ function MyComponent({ args, disabled, theme }: ComponentProps): ReactElement {
       boxSizing: "border-box",
       transition: "all 0.2s ease",
       opacity: disabled ? 0.6 : 1,
-      "&:hover": !disabled ? {
-        borderColor: customBorderColor || borderColor,
-        transform: "translateY(-1px)",
-        boxShadow: `0 2px 8px ${(customBorderColor || borderColor)}20`,
-      } : {},
     }
   }, [cardSize, CARD_HEIGHT, borderColor, disabled, itemStyles])
 
@@ -208,6 +204,26 @@ function MyComponent({ args, disabled, theme }: ComponentProps): ReactElement {
       objectFit: "contain",
       display: "block",
   }), [])
+
+  const altTextStyle: React.CSSProperties = useMemo(() => {
+    // Scale font size based on card size, with reasonable bounds
+    // Alt text should be larger than the label but not too large
+    const fontSize = Math.min(Math.max(cardSize * 0.2, 16), 32)
+    return {
+      fontSize: fontSize,
+      fontWeight: 600,
+      color: theme?.textColor || "#333",
+      textAlign: "center",
+      lineHeight: 1.2,
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    }
+  }, [cardSize, theme?.textColor])
 
   const labelStyle = useCallback((isSelected: boolean): React.CSSProperties => {
     // Scale font size based on card size, with reasonable bounds
@@ -235,34 +251,24 @@ function MyComponent({ args, disabled, theme }: ComponentProps): ReactElement {
             onClick={() => handleItemClick(itemId)}
             title={item.label}
           >
-            <div style={iconStyle}>
-              {item.icon ? (
-                <img 
-                  src={resolveIconSrc(item.icon)} 
-                  alt={item.label} 
-                  style={iconImgStyle} 
-                />
-              ) : (
-                <div 
-                  style={{
-                    width: "100%", 
-                    height: "100%", 
-                    background: "#e0e0e0", 
-                    borderRadius: 4,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: 10,
-                    color: "#666"
-                  }} 
-                >
-                  No Icon
-                </div>
+            {(item.icon || item.alt_text) ? (
+              <div style={iconStyle}>
+                {item.icon ? (
+                  <img 
+                    src={resolveIconSrc(item.icon)} 
+                    alt={item.label} 
+                    style={iconImgStyle} 
+                  />
+                ) : (
+                  <div style={altTextStyle}>
+                    {item.alt_text}
+                  </div>
                 )}
-                        </div>
+              </div>
+            ) : null}
             <div style={labelStyle(isSelected)}>
-                  {item.label}
-                </div>
+              {item.label}
+            </div>
               </div>
             )
           })}

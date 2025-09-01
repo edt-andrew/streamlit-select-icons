@@ -11,6 +11,8 @@ A Streamlit custom component that creates a selectable grid of labeled icons wit
 - ✅ **Bold selected labels**
 - ✅ **Configurable component dimensions**
 - ✅ **Row/column orientations with scrolling**
+- ✅ **No icon support** (display items without images)
+- ✅ **Alternative text display** (show text/emoji instead of icons)
 
 ## Installation
 
@@ -41,6 +43,17 @@ items = {
         "icon": "static/profile-icon.png",  # Will resolve to /app/static/profile-icon.png
         "properties": {"category": "user"}
     },
+    "status": {
+        "label": "Active", 
+        "icon": None,  # No icon - will show placeholder
+        "properties": {"category": "status"}
+    },
+    "priority": {
+        "label": "High Priority", 
+        "icon": None,  # No icon
+        "alt_text": "⚡",  # Show emoji instead
+        "properties": {"category": "priority"}
+    },
 }
 
 # Create the icon selector
@@ -61,6 +74,38 @@ if result:
     st.write("All items:", result["items"])
 ```
 
+## Icon Configuration
+
+### With Icons
+```python
+"item_id": {
+    "label": "Item Label",
+    "icon": "static/icon.png",  # Path to icon image
+    "properties": {...}
+}
+```
+
+### Without Icons
+```python
+"item_id": {
+    "label": "Item Label",
+    "icon": None,  # No icon - label text fills the icon area
+    "properties": {...}
+}
+```
+
+### With Alternative Text
+```python
+"item_id": {
+    "label": "Item Label",
+    "icon": None,  # No icon
+    "alt_text": "📝",  # Text/emoji to display instead (larger than label)
+    "properties": {...}
+}
+```
+
+**Note**: When both `icon` and `alt_text` are `None`, the component completely omits the icon area, displaying only the label text. This creates a cleaner, more focused appearance for text-only items.
+
 ## Static Files
 
 The component automatically resolves icon paths that start with `static/` to Streamlit's `/app/static/` folder. This means:
@@ -73,6 +118,10 @@ The component automatically resolves icon paths that start with `static/` to Str
 ## Parameters
 
 - **items**: Dictionary of items with id keys and item data
+  - **label**: Display text for the item
+  - **icon**: Path to icon image (can be `None` for no icon)
+  - **alt_text**: Text/emoji to display when icon is `None` (optional)
+  - **properties**: Additional metadata (optional)
 - **selected_items**: List of pre-selected item IDs
 - **multi_select**: Enable multiple selection (default: True)
 - **layout**: "column" or "row" layout orientation
